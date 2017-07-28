@@ -21,3 +21,5 @@ test_script:
 
 environment:
   BOOST_INCLUDEDIR: C:\Libraries\boost_1_63_0
+  BOOST_ROOT: C:\Libraries\boost_1_63_0
+  
