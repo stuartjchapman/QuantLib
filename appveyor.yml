@@ -1,2 +1,10 @@
 build:
-  project: QuantLib.sln
+  parallel: true                  # enable MSBuild parallel builds
+  project: QuantLib.sln           # path to Visual Studio solution or project
+ 
+image:
+- Visual Studio 2015
+
+platform: x64
+
+configuration: Release
