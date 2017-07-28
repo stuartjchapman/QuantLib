@@ -1,10 +1,30 @@
-build:
-  parallel: true                  # enable MSBuild parallel builds
-  project: QuantLib.sln           # path to Visual Studio solution or project
+
  
 image:
 - Visual Studio 2015
 
-platform: x64
+version: 0.1.{build}
 
-configuration: Release
+platform:
+  - x64
+
+build:
+  parallel: true                  # enable MSBuild parallel builds
+  project: QuantLib.sln           # path to Visual Studio solution or project
+
+install:
+  - cmd: echo "Downloading conan..."
+  - ps: wget http://downloads.conan.io/latest_windows -OutFile conan_installer.exe
+  - cmd: conan_installer.exe /VERYSILENT
+  - cmd: set PATH=%PATH%;C:\Program Files (x86)\Conan\conan
+  - cmd: conan --version
+
+build_script:
+  - cmd: mkdir build
+  - cmd: cd build
+  - cmd: conan install ..
+  - cmd: cmake -DBUILD_TEST=ON .. -G "Visual Studio 14 2015 Win64"
+  - cmd: cmake --build . --config Release
+
+test_script:
+  - cmd: cd bin
